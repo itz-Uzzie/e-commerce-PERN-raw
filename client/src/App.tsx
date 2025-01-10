@@ -16,6 +16,7 @@ import { Route, Routes } from "react-router-dom";
 import { fetchCategories } from "./redux/slices/categorySlice";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchuser, setFromLocal } from "./redux/slices/userSlice";
+import OrderConfirmation from "./Pages/OrderConfirmation";
 const ProtectCheck = React.lazy(() => import("./Components/ProtectCheck"));
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route element={<ProtectCheck />}>
             <Route path="/profile" element={<Profile />} />
             <Route path="/mycart/:u_id" element={<MyCart />} />
+            <Route path="/orderCheckout" element={<OrderConfirmation />} />
           </Route>
         </Routes>
       </Suspense>

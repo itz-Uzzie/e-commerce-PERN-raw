@@ -3,6 +3,9 @@ import userreducer from "./slices/userSlice";
 import productreducer from "./slices/productSlice";
 import categoryreducer from "./slices/categorySlice";
 import cartreducer from "./slices/cartSlice";
+import notificationreducer from "./slices/notificationSlice";
+import addressreducer from "./slices/addressSlice";
+import orderDetailreducer from "./slices/orderDetailSlice";
 import admin_alluser_reducer from "./slices/admin-slices/alluserSlice";
 const store = configureStore({
   reducer: {
@@ -11,6 +14,9 @@ const store = configureStore({
     categories: categoryreducer,
     allusers: admin_alluser_reducer,
     cart: cartreducer,
+    orderDetails: orderDetailreducer,
+    notifications: notificationreducer,
+    address: addressreducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
