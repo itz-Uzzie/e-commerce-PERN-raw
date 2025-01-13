@@ -29,6 +29,11 @@ function Profile() {
             </Link>
           </li>
           <li>
+            <Link to={`/myorders/${user.decodeduser.u_id}`} className="btn btn-ghost">
+              My Orders
+            </Link>
+          </li>
+          <li>
             <Link to="/addproduct" className="btn btn-primary">
               Add Product
             </Link>

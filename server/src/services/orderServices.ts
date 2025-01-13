@@ -96,7 +96,7 @@ export const placeOrder = async (req: CustomRequest, res: Response) => {
 
 
 export const myorders = async (req: CustomRequest, res: Response) => {
-    await db.query(`select p.name,oi.quantity,py.status payment,d.status delivery from orders o join order_items oi on oi.o_id = o.o_id join product p on p.p_id = oi.p_id join payment py on py.py_id = o.py_id join delivery d on d.oi_id = oi.oi_id join users u on o.u_id = u.u_id where u.u_id = $1`, [req.params.u_id], (err, result) => {
+    await db.query(`select oi.oi_id, p.name,oi.quantity,py.status payment,d.status delivery from orders o join order_items oi on oi.o_id = o.o_id join product p on p.p_id = oi.p_id join payment py on py.py_id = o.py_id join delivery d on d.oi_id = oi.oi_id join users u on o.u_id = u.u_id where u.u_id = $1`, [req.params.u_id], (err, result) => {
         if (err) return res.status(400).json(err.message);
         res.status(200).json(result.rows)
     })
