@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-interface order_item {
-    oi_id: number, name: string, quantity: number, payment: string, delivery: string
+interface product {
+    product_name: string, quantity: number, price: number
+}
+interface order {
+    o_id: number, total_price: number, delivery_status: string, payment_status: string,
+    products: product[]
 }
 
 const initialState = {
-    orders: {} as order_item[],
+    orders: {} as order[],
     isloading: false
 };
 

@@ -5,8 +5,9 @@ import { useEffect } from "react";
 import { fetchMyOrders } from "../redux/slices/orderSlice";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
+
 function MyOrders() {
-  const orders = useSelector((state: RootState) => state.order);
+  const { orders, isloading } = useSelector((state: RootState) => state.order);
   const u_id = useSelector((state: RootState) => state.user.decodeduser.u_id);
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();
   const navigate = useNavigate();
@@ -15,29 +16,38 @@ function MyOrders() {
     dispatch(fetchMyOrders(u_id));
   }, [dispatch, u_id]);
 
-  if (orders.isloading) {
+  if (isloading) {
     return <Loading />;
   }
 
   return (
     <div className="container mx-auto p-4">
-      {orders && orders.orders.length > 0 ? (
-        orders.orders.map((ord) => {
-          return (
-            <div
-              className="order card bg-base-100 shadow-md mb-4 p-6 rounded-lg w-full"
-              key={ord.oi_id}
-            >
-              <div className="name text-lg font-semibold mb-2">{ord.name}</div>
-              <div className="quantity mb-2">Quantity: {ord.quantity}</div>
-              <div className="payment mb-2">Payment: {ord.payment}</div>
-              <div className="delivery mb-4">
-                Delivery Status: {ord.delivery}
-              </div>
-              <button className="btn btn-primary w-full">Make Payment</button>
+      {orders && orders.length > 0 ? (
+        orders.map((order) => (
+          <div
+            className="order card bg-base-100 shadow-md mb-6 p-6 rounded-lg w-full"
+            key={order.o_id}
+          >
+            <div className="order-header mb-4">
+              <h2 className="text-xl font-bold mb-2">Order ID: {order.o_id}</h2>
+              <p className="text-lg">Total Price: ${order.total_price}</p>
+              <p className="text-lg">Payment Status: {order.payment_status}</p>
+              <p className="text-lg">Delivery Status: {order.delivery_status}</p>
             </div>
-          );
-        })
+            <div className="order-products mb-4">
+              <h3 className="text-lg font-semibold mb-2">Products:</h3>
+              <ul className="list-disc list-inside">
+                {order.products.map((product, index) => (
+                  <li key={index} className="mb-2">
+                    <span className="font-medium">{product.product_name}</span> - 
+                    Quantity: {product.quantity}, Price: ${product.price}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button className="btn btn-primary w-full">Make Payment</button>
+          </div>
+        ))
       ) : (
         <div className="text-center">
           <p className="text-xl font-semibold mb-4">No orders available</p>
