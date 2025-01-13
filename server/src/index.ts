@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         console.log(`User ${u_id} disconnected`);
-        if (u_id) delete userSockets[u_id];  // Remove user on disconnect
+        if (u_id) delete userSockets[u_id];
     });
 })
 

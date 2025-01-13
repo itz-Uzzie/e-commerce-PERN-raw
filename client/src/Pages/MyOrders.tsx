@@ -45,7 +45,7 @@ function MyOrders() {
                 ))}
               </ul>
             </div>
-            <button className="btn btn-primary w-full">Make Payment</button>
+            <button className="btn bg-red-900 w-full">Make Payment</button>
           </div>
         ))
       ) : (

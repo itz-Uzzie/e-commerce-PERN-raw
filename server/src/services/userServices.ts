@@ -75,8 +75,3 @@ export async function removeUser(req: CustomRequest, res: Response) {
         res.status(204).json("User removed successfuly")
     })
 };
-
-export async function testing(req: CustomRequest, res: Response) {
-    const result = await db.query(`select from users where u_id = $1`, [req.params.id]);
-    res.status(200).json(result.rows);
-}

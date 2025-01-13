@@ -6,6 +6,7 @@ import myordersreducer from "./slices/orderSlice";
 import productreducer from "./slices/productSlice";
 import addressreducer from "./slices/addressSlice";
 import categoryreducer from "./slices/categorySlice";
+import myproductreducer from "./slices/myProductSlice";
 import orderDetailreducer from "./slices/orderDetailSlice";
 import notificationreducer from "./slices/notificationSlice";
 import admin_alluser_reducer from "./slices/admin-slices/alluserSlice";
@@ -19,6 +20,7 @@ const store = configureStore({
     address: addressreducer,
     product: productreducer,
     categories: categoryreducer,
+    myproducts: myproductreducer,
     allusers: admin_alluser_reducer,
     orderDetails: orderDetailreducer,
     notifications: notificationreducer,

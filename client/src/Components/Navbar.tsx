@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaBell } from "react-icons/fa";
 import { useState } from "react";
 import { RootState } from "../redux/store";
 import { removeUser } from "../redux/slices/userSlice";
@@ -10,9 +11,14 @@ const Navbar = () => {
   const user = useSelector((state: RootState) => state.user);
   const isadmin = user.decodeduser.isadmin;
   const [isOpen, setIsOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
   };
 
   const removeuser = () => {
@@ -26,7 +32,7 @@ const Navbar = () => {
           <div className="text-2xl font-bold">
             <Link to="/">Me Commerce</Link>
           </div>
-          <div className="hidden md:flex space-x-6">
+          <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-gray-600 hover:text-gray-900">
               Home
             </Link>
@@ -60,6 +66,29 @@ const Navbar = () => {
                 Admin
               </Link>
             )}
+            {/* Notification Icon */}
+            <div className="relative">
+              <button
+                onClick={toggleNotifications}
+                className="text-gray-600 hover:text-gray-900 focus:outline-none"
+              >
+                <FaBell className="w-5 h-5" />
+              </button>
+              {showNotifications && (
+                <div className="absolute right-0 mt-2 w-64 bg-gray-600 shadow-lg rounded-lg overflow-hidden z-10">
+                  <div className="p-4">
+                    <h3 className="text-sm font-semibold text-gray-100">
+                      Notifications
+                    </h3>
+                    <ul>
+                      <li className="py-2 text-sm text-gray-200 border-b hover:bg-gray-100">
+                        New order received
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           <div className="md:hidden">
             <button

@@ -1,5 +1,5 @@
-import { Response } from "express";
 import db from "../db";
+import { Response } from "express";
 import { CustomRequest } from "../middleware/authMiddleware";
 
 export async function allusers(req: CustomRequest, res: Response) {
@@ -10,13 +10,6 @@ export async function allusers(req: CustomRequest, res: Response) {
             return res.status(200).json(result.rows)
         }
     );
-}
-
-export const allpayments = async (req: CustomRequest, res: Response) => {
-    await db.query(`select o.o_id, py.p_id, p.status from orders o join payment py on o.py_id = py.py_id`, (err, result) => {
-        if (err) return res.status(4000).json(err.message);
-        return res.status(200).json(result.rows);
-    })
 }
 
 export const payment_approved = async (req: CustomRequest, res: Response) => {

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-interface p { p_id: number, name: string, price: number, images: string };
+interface p { p_id: number, name: string, price: number, images: string, owner: string };
 const initialState = { products: {} as p[], isloading: false }
 
 export const fetchProducts = createAsyncThunk('fetchProducts', async ({ ct_id, page }: { ct_id: number | null, page: number | null }) => {

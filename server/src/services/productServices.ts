@@ -105,7 +105,7 @@ export async function AllProducts(req: CustomRequest, res: Response) {
 
 export async function singleproduct(req: CustomRequest, res: Response) {
     await db.query(`
-        select p.p_id, p.name, u.name, p.price, p.description, p.stock, 
+        select p.p_id, p.name, p.owner, u.name, p.price, p.description, p.stock, 
         ARRAY_AGG(pi.secure_url) as images
         from users u
         join product p on u.u_id = p.owner
@@ -118,7 +118,7 @@ export async function singleproduct(req: CustomRequest, res: Response) {
 }
 
 export async function myProducts(req: CustomRequest, res: Response) {
-    await db.query(`select distinct on (p.p_id) p.p_id, pi.secure_url, p.name, p.price from product p join product_images pi on p.p_id = pi.p_id where p.owner = $1`, [req.params.u_id], (err, result) => {
+    await db.query(`select distinct on (p.p_id) p.p_id, pi.secure_url images, p.name, p.price from product p join product_images pi on p.p_id = pi.p_id where p.owner = $1`, [req.params.u_id], (err, result) => {
         if (err) return res.status(400).json(err.message);
         return res.status(200).json(result.rows);
     })

@@ -20,6 +20,7 @@ import OrderConfirmation from "./Pages/OrderConfirmation";
 import MyOrders from "./Pages/MyOrders";
 import MySales from "./Pages/MySales";
 import AllOrders from "./Pages/Admin-Routes/AllOrders";
+import MyProducts from "./Pages/MyProducts";
 const ProtectCheck = React.lazy(() => import("./Components/ProtectCheck"));
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route path="/mycart/:u_id" element={<MyCart />} />
             <Route path="/myorders/:u_id" element={<MyOrders />} />
             <Route path="/mysales/:u_id" element={<MySales />} />
+            <Route path="/myproducts/:u_id" element={<MyProducts />} />
             <Route path="/orderCheckout" element={<OrderConfirmation />} />
           </Route>
         </Routes>
