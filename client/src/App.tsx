@@ -19,6 +19,7 @@ import { fetchuser, setFromLocal } from "./redux/slices/userSlice";
 import OrderConfirmation from "./Pages/OrderConfirmation";
 import MyOrders from "./Pages/MyOrders";
 import MySales from "./Pages/MySales";
+import AllOrders from "./Pages/Admin-Routes/AllOrders";
 const ProtectCheck = React.lazy(() => import("./Components/ProtectCheck"));
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route element={<PrivateRoute />}>
           <Route path="/admin" element={<AdminLinks />} />
           <Route path="/admin/allusers" element={<Allusers />} />
+          <Route path="/admin/allorders" element={<AllOrders />} />
         </Route>
       </Routes>
       <Suspense fallback={<Loading />}>

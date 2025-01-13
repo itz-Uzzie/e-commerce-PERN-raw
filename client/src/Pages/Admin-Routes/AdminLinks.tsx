@@ -7,9 +7,15 @@ function AdminLinks() {
         <div className="w-full">
           <Link
             to="/admin/allusers"
-            className="block w-full text-center bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-800 shadow-md"
+            className="block m-4 w-full text-center bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-800 shadow-md"
           >
             All Users
+          </Link>
+          <Link
+            to="/admin/allorders"
+            className="block m-4 w-full text-center bg-emerald-600 text-white py-2 px-4 rounded-md hover:bg-emerald-800 shadow-md"
+          >
+            All Orders
           </Link>
         </div>
       </div>
