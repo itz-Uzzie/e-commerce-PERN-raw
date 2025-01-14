@@ -1,29 +1,44 @@
 import { Link } from "react-router-dom";
 import { FaBell } from "react-icons/fa";
-import { useState } from "react";
 import { RootState } from "../redux/store";
 import { removeUser } from "../redux/slices/userSlice";
+import { fetchnotifications } from "../redux/slices/notificationSlice";
+import { useState, useEffect } from "react";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
+import io from "socket.io-client";
 
 const Navbar = () => {
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();
   const user = useSelector((state: RootState) => state.user);
-  const isadmin = user.decodeduser.isadmin;
+  const mynotifications = useSelector(
+    (state: RootState) => state.notifications.notifications
+  );
+  
+  const isAdmin = user?.decodeduser?.isadmin;
+  const userId = user?.decodeduser?.u_id;
+  const socket = io("http://localhost:4000", {
+    query: {
+      u_id: userId,
+    },
+  });
+  console.log(socket);
+
   const [isOpen, setIsOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleNotifications = () => setShowNotifications((prev) => !prev);
 
-  const toggleNotifications = () => {
-    setShowNotifications(!showNotifications);
-  };
-
-  const removeuser = () => {
+  const handleLogout = () => {
     dispatch(removeUser());
   };
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchnotifications(userId));
+    }
+  }, [userId, dispatch]);
 
   return (
     <nav className="bg-transparent shadow-md">
@@ -32,6 +47,7 @@ const Navbar = () => {
           <div className="text-2xl font-bold">
             <Link to="/">Me Commerce</Link>
           </div>
+
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/" className="text-gray-600 hover:text-gray-900">
               Home
@@ -39,34 +55,24 @@ const Navbar = () => {
             <Link to="/profile" className="text-gray-600 hover:text-gray-900">
               Profile
             </Link>
-            {user.decodeduser.u_id && (
-              <Link
-                to="/login"
+            {userId ? (
+              <button
+                onClick={handleLogout}
                 className="text-gray-600 hover:text-gray-900"
-                onClick={() => {
-                  removeuser();
-                }}
               >
                 Logout
-              </Link>
-            )}
-            {!user.decodeduser.u_id && (
-              <Link
-                to="/login"
-                className="text-gray-600 hover:text-gray-900"
-                onClick={() => {
-                  removeuser();
-                }}
-              >
+              </button>
+            ) : (
+              <Link to="/login" className="text-gray-600 hover:text-gray-900">
                 Login
               </Link>
             )}
-            {isadmin && (
+            {isAdmin && (
               <Link to="/admin" className="text-gray-600 hover:text-gray-900">
                 Admin
               </Link>
             )}
-            {/* Notification Icon */}
+
             <div className="relative">
               <button
                 onClick={toggleNotifications}
@@ -75,21 +81,35 @@ const Navbar = () => {
                 <FaBell className="w-5 h-5" />
               </button>
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-64 bg-gray-600 shadow-lg rounded-lg overflow-hidden z-10">
+                <div className="absolute right-0 mt-2 w-64 h-52 bg-gray-100 shadow-lg rounded-lg overflow-y-scroll z-10">
                   <div className="p-4">
-                    <h3 className="text-sm font-semibold text-gray-100">
+                    <h3 className="text-sm font-semibold text-gray-800">
                       Notifications
                     </h3>
                     <ul>
-                      <li className="py-2 text-sm text-gray-200 border-b hover:bg-gray-100">
-                        New order received
-                      </li>
+                      {mynotifications.length > 0 ? (
+                        mynotifications.map((not) => (
+                          <li
+                            key={not.n_id}
+                            className={`py-2 mb-1 text-sm text-gray-600 border-b hover:bg-gray-200 ${
+                              not.isread ? "bg-white" : "bg-blue-400"
+                            }`}
+                          >
+                            {not.content}
+                          </li>
+                        ))
+                      ) : (
+                        <li className="py-2 text-sm text-gray-600">
+                          No new notifications
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </div>
               )}
             </div>
           </div>
+
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
@@ -114,6 +134,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+
         {isOpen && (
           <div className="md:hidden">
             <Link
@@ -123,34 +144,27 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to="/about"
+              to="/profile"
               className="block text-center py-2 px-4 text-sm text-gray-600 hover:bg-gray-100"
             >
-              About
+              Profile
             </Link>
-            {user.decodeduser.u_id && (
-              <Link
-                to="/login"
+            {userId ? (
+              <p
+                onClick={handleLogout}
                 className="block text-center py-2 px-4 text-sm text-gray-600 hover:bg-gray-100"
-                onClick={() => {
-                  removeuser();
-                }}
               >
                 Logout
-              </Link>
-            )}
-            {!user.decodeduser.u_id && (
+              </p>
+            ) : (
               <Link
                 to="/login"
                 className="block text-center py-2 px-4 text-sm text-gray-600 hover:bg-gray-100"
-                onClick={() => {
-                  removeuser();
-                }}
               >
                 Login
               </Link>
             )}
-            {isadmin && (
+            {isAdmin && (
               <Link
                 to="/admin"
                 className="block text-center py-2 px-4 text-sm text-gray-600 hover:bg-gray-100"

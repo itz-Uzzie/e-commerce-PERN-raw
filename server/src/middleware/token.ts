@@ -5,6 +5,6 @@ export const generatetoken = async (u_id: number, email: string, isadmin: boolea
     return jwt.sign(
         { u_id: u_id, email: email, isadmin: isadmin },
         JWT_SECRET,
-        { expiresIn: "1h" }
+        { expiresIn: "5h" }
     );
 }
