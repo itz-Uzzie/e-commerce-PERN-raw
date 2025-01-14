@@ -1,26 +1,26 @@
 import Home from "./Pages/Home";
+import Login from "./Pages/Basic-Routes/Login";
 import MyCart from "./Pages/Profile-Routes/MyCart";
 import Signup from "./Pages/Basic-Routes/Signup";
-import Profile from "./Pages/Profile-Routes/Profile";
 import Navbar from "./Components/Navbar";
+import Profile from "./Pages/Profile-Routes/Profile";
 import Loading from "./Components/Loading";
-import ProductDetails from "./Pages/Product-Routes/ProductDetails";
-import PrivateRoute from "./Components/PrivateRoute";
+import MySales from "./Pages/Profile-Routes/MySales";
+import MyOrders from "./Pages/Profile-Routes/MyOrders";
 import Allusers from "./Pages/Admin-Routes/Allusers";
+import AllOrders from "./Pages/Admin-Routes/AllOrders";
+import MyProducts from "./Pages/Profile-Routes/MyProducts";
+import AddProduct from "./Pages/Product-Routes/AddProduct";
 import AdminLinks from "./Pages/Admin-Routes/AdminLinks";
+import PrivateRoute from "./Components/PrivateRoute";
+import OrderConfirmation from "./Pages/OrderConfirmation";
+import ProductDetails from "./Pages/Product-Routes/ProductDetails";
 import React, { Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { fetchCategories } from "./redux/slices/categorySlice";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { fetchuser, setFromLocal } from "./redux/slices/userSlice";
-import Login from "./Pages/Basic-Routes/Login";
-import MySales from "./Pages/Profile-Routes/MySales";
-import MyOrders from "./Pages/Profile-Routes/MyOrders";
-import AllOrders from "./Pages/Admin-Routes/AllOrders";
-import MyProducts from "./Pages/Profile-Routes/MyProducts";
-import AddProduct from "./Pages/Product-Routes/AddProduct";
-import OrderConfirmation from "./Pages/OrderConfirmation";
 const ProtectCheck = React.lazy(() => import("./Components/ProtectCheck"));
 
 function App() {

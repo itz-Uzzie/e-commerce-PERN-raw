@@ -6,6 +6,7 @@ interface sales_item {
     quantity: number;
     payment: string;
     delivery: string;
+    address: string
 }
 
 const initialState = {

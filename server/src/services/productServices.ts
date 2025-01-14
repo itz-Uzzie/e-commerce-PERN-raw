@@ -23,7 +23,9 @@ export async function newProduct(req: CustomRequest, res: Response) {
         }
     }
     await db.query(
-        `insert into product(name,price,description,stock,owner,ct_id) values($1,$2,$3,$4,$5,$6) returning p_id`,
+        `insert into product(name,price,description,stock,owner,ct_id) 
+        values($1,$2,$3,$4,$5,$6) 
+        returning p_id`,
         [name, price, description, stock, u_id, ct_id],
         async (err, result) => {
             if (err) {
@@ -91,9 +93,9 @@ export async function AllProducts(req: CustomRequest, res: Response) {
         params.push(Number(ct_id));
     }
     const query = `
-        SELECT DISTINCT ON (p.p_id) p.p_id, p.ct_id, p.name, p.price, pi.secure_url images 
-        FROM product p 
-        JOIN Product_Images pi ON p.p_id = pi.p_id
+        select distinct on (p.p_id) p.p_id, p.ct_id, p.name, p.price, pi.secure_url images 
+        from product p 
+        join Product_Images pi on p.p_id = pi.p_id
         ${filterQuery}
         ${limitQuery}
     `;
@@ -118,7 +120,10 @@ export async function singleproduct(req: CustomRequest, res: Response) {
 }
 
 export async function myProducts(req: CustomRequest, res: Response) {
-    await db.query(`select distinct on (p.p_id) p.p_id, pi.secure_url images, p.name, p.price from product p join product_images pi on p.p_id = pi.p_id where p.owner = $1`, [req.params.u_id], (err, result) => {
+    await db.query(`select distinct on (p.p_id) p.p_id, pi.secure_url images, p.name, p.price 
+        from product p 
+        join product_images pi on p.p_id = pi.p_id 
+        where p.owner = $1`, [req.params.u_id], (err, result) => {
         if (err) return res.status(400).json(err.message);
         return res.status(200).json(result.rows);
     })

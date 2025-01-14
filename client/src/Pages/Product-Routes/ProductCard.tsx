@@ -20,12 +20,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const handleClick = async () => {
     await dispatch(fetchdetails(product.p_id));
-    navigate(`/product/${product.p_id}`); // Navigate to details page
+    navigate(`/product/${product.p_id}`);
   };
 
   return (
     <div
-      className="bg-slate-800 text-white rounded-lg shadow-md overflow-hidden cursor-pointer"
+      className="bg-slate-800 text-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:scale-105 hover:transition"
       onClick={handleClick}
     >
       <img

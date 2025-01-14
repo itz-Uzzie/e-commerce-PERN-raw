@@ -9,9 +9,9 @@ function Profile() {
 
   return (
     <div className="flex flex-col lg:flex-row md:flex-row min-h-screen">
-      <aside className="w-full flex flex-row lg:w-1/4 lg:flex-col md:w-1/4 md:flex-col bg-base-200 p-5 shadow-lg">
-        <h1 className="text-2xl font-bold mb-5">Dashboard</h1>
-        <ul className="menu p-0">
+      <aside className="w-full lg:w-1/4 md:w-1/4 bg-base-200 p-5 shadow-lg">
+        <h1 className="text-2xl text-center font-bold mb-5">Dashboard</h1>
+        <ul className="menu p-0 flex flex-row justify-center lg:flex-col md:flex-col">
           <li>
             <Link
               to={`/myproducts/${user.decodeduser.u_id}`}
@@ -45,7 +45,7 @@ function Profile() {
             </Link>
           </li>
           <li>
-            <Link to="/addproduct" className="btn btn-primary">
+            <Link to="/addproduct" className="btn btn-ghost">
               Add Product
             </Link>
           </li>

@@ -37,7 +37,13 @@ export async function addtocart(req: CustomRequest, res: Response) {
 
 export async function mycart(req: CustomRequest, res: Response) {
     await db.query(
-        `select distinct on (p.p_id) p.p_id, p.owner, p.name, cp.quantity, p.price, pi.secure_url image from cart c join cart_product cp on c.c_id = cp.c_id join product p on cp.p_id = p.p_id join product_images pi on p.p_id = pi.p_id where c.owner = $1 order by p.p_id asc`, [req.params.u_id],
+        `select distinct on (p.p_id) p.p_id, p.owner, p.name, cp.quantity, p.price, pi.secure_url image 
+        from cart c 
+        join cart_product cp on c.c_id = cp.c_id 
+        join product p on cp.p_id = p.p_id 
+        join product_images pi on p.p_id = pi.p_id 
+        where c.owner = $1 
+        order by p.p_id asc`, [req.params.u_id],
         (err, result) => {
             if (err) return res.status(400).json({ error: err.message });
             return res.status(200).json(result.rows)

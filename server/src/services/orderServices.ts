@@ -82,28 +82,20 @@ export const placeOrder = async (req: CustomRequest, res: Response) => {
 
 
 export const myorders = async (req: CustomRequest, res: Response) => {
-    await db.query(`SELECT 
+    await db.query(`select 
                 o.o_id,
                 ARRAY_AGG(jsonb_build_object('product_name', p.name, 'quantity', oi.quantity, 'price', p.price)) products,
-                SUM(oi.quantity * p.price) total_price,
+                sum(oi.quantity * p.price) total_price,
                 py.status payment_status,
-                MAX(d.status) delivery_status
-            from 
-                orders o
-            join 
-                order_items oi on oi.o_id = o.o_id
-            join 
-                product p on p.p_id = oi.p_id
-            join 
-                payment py on py.py_id = o.py_id
-             join 
-                delivery d on d.oi_id = oi.oi_id
-            where 
-                o.u_id = $1
-            group by 
-                o.o_id, py.status
-            order by 
-                o.o_id desc;`, [req.params.u_id], (err, result) => {
+                max(d.status) delivery_status
+                from orders o
+                join order_items oi on oi.o_id = o.o_id
+                join product p on p.p_id = oi.p_id
+                join payment py on py.py_id = o.py_id
+                join delivery d on d.oi_id = oi.oi_id
+                where o.u_id = $1
+                group by o.o_id, py.status
+                order by o.o_id desc`, [req.params.u_id], (err, result) => {
         if (err) return res.status(400).json(err.message);
         res.status(200).json(result.rows)
     })

@@ -40,7 +40,7 @@ function MySales() {
       {sales.sales && sales.sales.length > 0 ? (
         sales.sales.map((item) => (
           <div
-            className="order card bg-base-100 shadow-md mb-4 p-6 rounded-lg w-full"
+            className="order card bg-base-100 shadow-md mb-4 p-6 rounded-lg w-full hover:shadow-2xl hover:transition"
             key={item.oi_id}
           >
             <div className="name text-lg font-semibold mb-2">{item.name}</div>
@@ -49,12 +49,16 @@ function MySales() {
             <div className="delivery mb-4">
               Delivery Status: {item.delivery}
             </div>
+            <div className="address mb-4 text-blue-600">
+              <strong>Address : </strong> {item.address}
+            </div>
             <button
+            disabled = {item.delivery=="delivered"}
               onClick={() => {
                 setSelectedSale(item.oi_id);
                 setShowModal(true);
               }}
-              className="btn bg-red-900 w-full"
+              className="btn bg-green-900 w-full"
             >
               Change Delivery Status
             </button>
@@ -68,7 +72,7 @@ function MySales() {
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded shadow-lg">
+          <div className="bg-zinc-800 p-6 rounded shadow-lg">
             <h2 className="text-xl font-bold mb-4">Update Delivery Status</h2>
             <div className="space-y-2">
               {["Pending", "Shipped", "Delivered", "Cancelled"].map(
@@ -76,7 +80,7 @@ function MySales() {
                   <button
                     key={status}
                     onClick={() => handleUpdateStatus(status)}
-                    className="btn btn-secondary w-full"
+                    className="btn bg-green-600 w-full"
                   >
                     {status}
                   </button>

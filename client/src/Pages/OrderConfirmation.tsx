@@ -8,7 +8,6 @@ function OrderConfirmation() {
   const dispatch = useDispatch();
   const orderDetails = useSelector((state: RootState) => state.orderDetails);
   const u_id = useSelector((state: RootState) => state.user.decodeduser.u_id);
-
   const [toast, setToast] = useState<{ message: string; type: string } | null>(null);
 
   const handleQuantityChange = (p_id: number, newQuantity: number) => {
@@ -57,7 +56,6 @@ function OrderConfirmation() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  // Calculate total price using useMemo for performance
   const totalPrice = useMemo(
     () =>
       orderDetails.products.reduce(

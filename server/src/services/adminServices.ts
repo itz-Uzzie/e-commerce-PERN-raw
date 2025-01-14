@@ -26,20 +26,13 @@ export const allorders = async (req: CustomRequest, res: Response) => {
                 SUM(oi.quantity * p.price) total_price,
                 py.status payment_status,
                 MAX(d.status) delivery_status
-            from 
-                orders o
-            join 
-                order_items oi on oi.o_id = o.o_id
-            join 
-                product p on p.p_id = oi.p_id
-            join 
-                payment py on py.py_id = o.py_id
-             join 
-                delivery d on d.oi_id = oi.oi_id
-            group by 
-                o.o_id, py.status
-            order by 
-                o.o_id desc;`, (err, result) => {
+                from orders o
+                join order_items oi on oi.o_id = o.o_id
+                join product p on p.p_id = oi.p_id
+                join payment py on py.py_id = o.py_id
+                 join delivery d on d.oi_id = oi.oi_id
+                group by o.o_id, py.status
+                order by o.o_id desc;`, (err, result) => {
         if (err) return res.status(500).json(err.message);
         res.status(200).json(result.rows)
     })

@@ -1,7 +1,7 @@
-import { Request, Response } from "express";
 import db from "../db";
 import { generatetoken } from "../middleware/token";
 import { CustomRequest } from "../middleware/authMiddleware";
+import { Request, Response } from "express";
 
 export async function signup(req: CustomRequest, res: Response) {
     const { name, email, password } = req.body;

@@ -5,7 +5,7 @@ import { allorders, allusers, payment_approved } from "../services/adminServices
 const router = express.Router();
 
 router.route("/allusers").get(authMiddleware, adminMiddleware, tryCatch(allusers));
-router.route("/allorders").get(tryCatch(allorders));
-router.route("/payment/approve/:o_id").get(tryCatch(payment_approved));
+router.route("/allorders").get(authMiddleware, adminMiddleware, tryCatch(allorders));
+router.route("/payment/approve/:o_id").get(authMiddleware, adminMiddleware, tryCatch(payment_approved));
 
 export default router;

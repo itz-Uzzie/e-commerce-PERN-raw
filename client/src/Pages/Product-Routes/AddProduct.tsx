@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
-
 interface ProductFormData {
   ct_id: number;
   name: string;
@@ -11,9 +10,7 @@ interface ProductFormData {
   description: string;
   images: File[];
 }
-
 const initialFormState: ProductFormData = {} as ProductFormData;
-
 function AddProduct() {
   const navigate = useNavigate();
   const u_id = useSelector((state: RootState) => state.user.decodeduser.u_id);
@@ -84,7 +81,6 @@ function AddProduct() {
   return (
     <div className="container max-w-3xl mx-auto p-6 bg-black rounded-lg shadow-md">
       <form className="space-y-6" onSubmit={handleSubmit}>
-        {/* Category Select */}
         <div>
           <label htmlFor="category" className="block text-sm font-medium">
             Category
@@ -107,7 +103,6 @@ function AddProduct() {
           </select>
         </div>
 
-        {/* Product Name */}
         <div>
           <label htmlFor="name" className="block text-sm font-medium">
             Product Name
@@ -123,7 +118,6 @@ function AddProduct() {
           />
         </div>
 
-        {/* Product Price */}
         <div>
           <label htmlFor="price" className="block text-sm font-medium">
             Price
@@ -138,7 +132,6 @@ function AddProduct() {
           />
         </div>
 
-        {/* Product Stock */}
         <div>
           <label htmlFor="stock" className="block text-sm font-medium">
             Stock
@@ -153,7 +146,6 @@ function AddProduct() {
           />
         </div>
 
-        {/* Description */}
         <div>
           <label htmlFor="description" className="block text-sm font-medium">
             Description
@@ -168,7 +160,6 @@ function AddProduct() {
           />
         </div>
 
-        {/* Images */}
         <div>
           <label htmlFor="images" className="block text-sm font-medium">
             Upload Images (Max 5)
@@ -183,7 +174,6 @@ function AddProduct() {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"
