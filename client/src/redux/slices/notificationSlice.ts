@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Notification {
-  n_id: string;
-  u_id: string;
+  n_id: number;
+  u_id: number;
   content: string;
   isread: boolean;
   created_at: string;
@@ -20,15 +20,19 @@ export const fetchnotifications = createAsyncThunk('fetch/notifications', async 
   }
 })
 
+export const mark_as_read = createAsyncThunk('mark-as-read/notifications', async (n_id: number) => {
+  const response = await fetch(`http://localhost:4000/api/v1/notification/mark_as_read/${n_id}`, { method: "PATCH" });
+  if (response.ok) {
+    return n_id;
+  }
+})
+
 const notificationSlice = createSlice({
   name: "notifications",
   initialState,
   reducers: {
     addNotification: (state, action: PayloadAction<Notification>) => {
       state.notifications.push(action.payload);
-    },
-    markAsRead: (state) => {
-      state.notifications.forEach((n) => (n.isread = true));
     },
   },
   extraReducers(builder) {
@@ -42,8 +46,15 @@ const notificationSlice = createSlice({
     builder.addCase(fetchnotifications.rejected,(state)=>{
       state.isLoading = false;
     })
+    builder.addCase(mark_as_read.pending,(state)=>{
+      state.isLoading = true;
+    })
+    builder.addCase(mark_as_read.fulfilled,(state,action)=>{
+      state.isLoading = false;
+      state.notifications = state.notifications.filter((not)=> not.n_id!==action.payload)
+    })
   },
 });
 
-export const { addNotification, markAsRead } = notificationSlice.actions;
+export const { addNotification } = notificationSlice.actions;
 export default notificationSlice.reducer;

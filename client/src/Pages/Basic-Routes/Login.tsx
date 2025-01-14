@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchuser, setFromLocal } from "../redux/slices/userSlice";
+import { fetchuser, setFromLocal } from "../../redux/slices/userSlice";
 
 function Login() {
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();

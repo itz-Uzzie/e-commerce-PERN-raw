@@ -23,7 +23,7 @@ const authMiddleware = async (req: CustomRequest, res: Response, next: NextFunct
         req.u_id = decoded.u_id;
         req.isadmin = decoded.isadmin;
         const userData = await db.query(
-            `SELECT u_id, isadmin FROM users WHERE u_id = $1`,
+            `select u_id, isadmin from users where u_id = $1`,
             [decoded.u_id]
         );
         if (userData.rowCount === 0) {

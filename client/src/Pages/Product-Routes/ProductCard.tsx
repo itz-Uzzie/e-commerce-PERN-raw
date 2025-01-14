@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
-import { fetchdetails } from "../redux/slices/productSlice";
 import { useNavigate } from "react-router-dom";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+import { fetchdetails } from "../../redux/slices/productSlice";
 
 interface p {
   p_id: number;

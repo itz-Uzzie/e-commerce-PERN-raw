@@ -1,6 +1,6 @@
-import Loading from "../Components/Loading";
+import Loading from "../../Components/Loading";
 import ProductCard from "./ProductCard";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 
 const ProductList = () => {

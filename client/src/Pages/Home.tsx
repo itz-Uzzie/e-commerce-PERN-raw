@@ -5,18 +5,16 @@ import { Suspense, useEffect } from "react";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, resetProducts } from "../redux/slices/productSlice";
-const ProductList = React.lazy(() => import("./ProductList"));
+const ProductList = React.lazy(() => import("./Product-Routes/ProductList"));
 
 const Home = () => {
   const categories = useSelector((state: RootState) => state.categories);
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();
-  const [selectedCategory, setselectedCategory] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedCategory, setselectedCategory] = useState<number | null>(null);
 
   useEffect(() => {
-    dispatch(
-      fetchProducts({ ct_id: selectedCategory, page: currentPage})
-    );
+    dispatch(fetchProducts({ ct_id: selectedCategory, page: currentPage }));
   }, [dispatch, selectedCategory, currentPage]);
 
   const handleCategoryClick = (ct_id: number) => {

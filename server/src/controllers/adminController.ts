@@ -1,7 +1,7 @@
 import express from "express";
 import tryCatch from "../utils/trycatch";
-import { allorders, allusers, payment_approved } from "../services/adminServices";
 import { adminMiddleware, authMiddleware } from "../middleware/authMiddleware";
+import { allorders, allusers, payment_approved } from "../services/adminServices";
 const router = express.Router();
 
 router.route("/allusers").get(authMiddleware, adminMiddleware, tryCatch(allusers));

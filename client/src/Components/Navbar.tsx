@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 import { FaBell } from "react-icons/fa";
 import { RootState } from "../redux/store";
 import { removeUser } from "../redux/slices/userSlice";
-import { fetchnotifications } from "../redux/slices/notificationSlice";
 import { useState, useEffect } from "react";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import io from "socket.io-client";
+import {
+  fetchnotifications,
+  mark_as_read,
+} from "../redux/slices/notificationSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();
@@ -14,16 +17,8 @@ const Navbar = () => {
   const mynotifications = useSelector(
     (state: RootState) => state.notifications.notifications
   );
-  
   const isAdmin = user?.decodeduser?.isadmin;
   const userId = user?.decodeduser?.u_id;
-  const socket = io("http://localhost:4000", {
-    query: {
-      u_id: userId,
-    },
-  });
-  console.log(socket);
-
   const [isOpen, setIsOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -32,6 +27,9 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch(removeUser());
+  };
+  const handleMarkAsRead = (n_id: number) => {
+    dispatch(mark_as_read(n_id));
   };
 
   useEffect(() => {
@@ -81,9 +79,9 @@ const Navbar = () => {
                 <FaBell className="w-5 h-5" />
               </button>
               {showNotifications && (
-                <div className="absolute right-0 mt-2 w-64 h-52 bg-gray-100 shadow-lg rounded-lg overflow-y-scroll z-10">
+                <div className="absolute right-0 mt-2 w-64 h-60 bg-gray-800 shadow-lg rounded-lg overflow-y-scroll z-10">
                   <div className="p-4">
-                    <h3 className="text-sm font-semibold text-gray-800">
+                    <h3 className="text-sm font-semibold text-gray-400">
                       Notifications
                     </h3>
                     <ul>
@@ -91,11 +89,22 @@ const Navbar = () => {
                         mynotifications.map((not) => (
                           <li
                             key={not.n_id}
-                            className={`py-2 mb-1 text-sm text-gray-600 border-b hover:bg-gray-200 ${
-                              not.isread ? "bg-white" : "bg-blue-400"
+                            className={`py-2 mb-1 text-sm border-b rounded-xl p-2 ${
+                              not.isread ? "bg-white" : "bg-green-400"
                             }`}
                           >
-                            {not.content}
+                            <p className="text-gray-900">{not.content}</p>
+                            {!not.isread && (
+                              <button
+                                onClick={() => handleMarkAsRead(not.n_id)}
+                                className="mt-1 text-xs text-green-900 hover:underline"
+                              >
+                                Mark as Read
+                              </button>
+                            )}
+                            <p className="text-xs text-right text-gray-600">
+                              {format(new Date(not.created_at), "PPpp")}
+                            </p>
                           </li>
                         ))
                       ) : (

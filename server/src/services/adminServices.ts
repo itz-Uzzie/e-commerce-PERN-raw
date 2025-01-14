@@ -4,7 +4,7 @@ import { CustomRequest } from "../middleware/authMiddleware";
 
 export async function allusers(req: CustomRequest, res: Response) {
     await db.query(
-        `select u_id,name,email,password from users order by u_id asc`,
+        `select u_id, name, email, password from users order by u_id asc`,
         (err, result) => {
             if (err) return res.status(400).json({ error: err.message });
             return res.status(200).json(result.rows)
@@ -14,7 +14,7 @@ export async function allusers(req: CustomRequest, res: Response) {
 
 export const payment_approved = async (req: CustomRequest, res: Response) => {
     await db.query(`update payment set status = 'approved' where py_id = (select py_id from orders where o_id = $1)`, [req.params.o_id], (err) => {
-        if (err) return res.status(400).json(err.message);
+        if (err) return res.status(500).json(err.message);
         return res.status(200).json("Payment Status updated successfully")
     })
 }
@@ -40,7 +40,7 @@ export const allorders = async (req: CustomRequest, res: Response) => {
                 o.o_id, py.status
             order by 
                 o.o_id desc;`, (err, result) => {
-        if (err) return res.status(400).json(err.message);
+        if (err) return res.status(500).json(err.message);
         res.status(200).json(result.rows)
     })
 }

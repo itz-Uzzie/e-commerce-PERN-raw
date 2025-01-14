@@ -1,9 +1,9 @@
-import Loading from "../Components/Loading";
-import Address from "../Components/Address";
-import { RootState } from "../redux/store";
-import { fetchCart } from "../redux/slices/cartSlice";
+import Loading from "../../Components/Loading";
+import Address from "../../Components/Address";
+import { RootState } from "../../redux/store";
+import { fetchCart } from "../../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
-import { setOrderDetails } from "../redux/slices/orderDetailSlice";
+import { setOrderDetails } from "../../redux/slices/orderDetailSlice";
 import { useEffect, useState } from "react";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";

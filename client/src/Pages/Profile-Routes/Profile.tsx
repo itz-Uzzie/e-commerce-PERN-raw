@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useSelector } from "react-redux";
 
 function Profile() {
@@ -9,27 +9,38 @@ function Profile() {
 
   return (
     <div className="flex flex-col lg:flex-row md:flex-row min-h-screen">
-      {/* Sidebar */}
-      <aside className="w-full lg:w-1/4 md:w-1/4 bg-base-200 p-5 shadow-lg">
+      <aside className="w-full flex flex-row lg:w-1/4 lg:flex-col md:w-1/4 md:flex-col bg-base-200 p-5 shadow-lg">
         <h1 className="text-2xl font-bold mb-5">Dashboard</h1>
         <ul className="menu p-0">
           <li>
-            <Link to={`/myproducts/${user.decodeduser.u_id}`} className="btn btn-ghost">
+            <Link
+              to={`/myproducts/${user.decodeduser.u_id}`}
+              className="btn btn-ghost"
+            >
               My Products
             </Link>
           </li>
           <li>
-            <Link to={`/mysales/${user.decodeduser.u_id}`} className="btn btn-ghost">
+            <Link
+              to={`/mysales/${user.decodeduser.u_id}`}
+              className="btn btn-ghost"
+            >
               My Sales
             </Link>
           </li>
           <li>
-            <Link to={`/mycart/${user.decodeduser.u_id}`} className="btn btn-ghost">
+            <Link
+              to={`/mycart/${user.decodeduser.u_id}`}
+              className="btn btn-ghost"
+            >
               My Cart
             </Link>
           </li>
           <li>
-            <Link to={`/myorders/${user.decodeduser.u_id}`} className="btn btn-ghost">
+            <Link
+              to={`/myorders/${user.decodeduser.u_id}`}
+              className="btn btn-ghost"
+            >
               My Orders
             </Link>
           </li>
@@ -41,7 +52,6 @@ function Profile() {
         </ul>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 p-8">
         <div className="card w-full bg-base-100 shadow-xl p-5">
           <h2 className="text-3xl font-bold mb-5">Profile Details</h2>

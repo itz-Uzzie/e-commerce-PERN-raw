@@ -8,3 +8,10 @@ export const myNotification = async (req: CustomRequest, res: Response) => {
         res.status(200).json(result.rows);
     })
 }
+
+export const markAsRead = async (req: CustomRequest, res: Response) => {
+    await db.query(`update notification set isread = true where n_id = $1`, [req.params.n_id], (err) => {
+        if (err) return res.status(400).json(err.message);
+        return res.status(200).json("Notification status updated successfully")
+    })
+}

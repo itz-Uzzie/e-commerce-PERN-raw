@@ -1,10 +1,13 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useEffect } from "react";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
-import { fetchMySales, updateDeliveryStatus } from "../redux/slices/salesSlice";
-import Loading from "../Components/Loading";
+import {
+  fetchMySales,
+  updateDeliveryStatus,
+} from "../../redux/slices/salesSlice";
+import Loading from "../../Components/Loading";
 
 function MySales() {
   const sales = useSelector((state: RootState) => state.sale);
@@ -19,7 +22,9 @@ function MySales() {
 
   const handleUpdateStatus = async (status: string) => {
     if (selectedSale) {
-      await dispatch(updateDeliveryStatus({ oi_id: selectedSale, delivery: status }));
+      await dispatch(
+        updateDeliveryStatus({ oi_id: selectedSale, delivery: status })
+      );
       setShowModal(false);
       setSelectedSale(null);
     }
@@ -66,15 +71,17 @@ function MySales() {
           <div className="bg-white p-6 rounded shadow-lg">
             <h2 className="text-xl font-bold mb-4">Update Delivery Status</h2>
             <div className="space-y-2">
-              {["Pending", "Shipped", "Delivered", "Cancelled"].map((status) => (
-                <button
-                  key={status}
-                  onClick={() => handleUpdateStatus(status)}
-                  className="btn btn-secondary w-full"
-                >
-                  {status}
-                </button>
-              ))}
+              {["Pending", "Shipped", "Delivered", "Cancelled"].map(
+                (status) => (
+                  <button
+                    key={status}
+                    onClick={() => handleUpdateStatus(status)}
+                    className="btn btn-secondary w-full"
+                  >
+                    {status}
+                  </button>
+                )
+              )}
             </div>
             <button
               onClick={() => setShowModal(false)}

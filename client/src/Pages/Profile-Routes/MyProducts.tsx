@@ -1,10 +1,10 @@
-import ProductCard from "./ProductCard";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "../Components/Loading";
+import Loading from "../../Components/Loading";
 import { useEffect } from "react";
-import { fetchmyProducts } from "../redux/slices/myProductSlice";
+import { fetchmyProducts } from "../../redux/slices/myProductSlice";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+import ProductCard from "../Product-Routes/ProductCard";
 
 function MyProducts() {
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();
@@ -15,7 +15,7 @@ function MyProducts() {
   useEffect(() => {
     dispatch(fetchmyProducts(u_id));
   }, [dispatch, u_id]);
-  
+
   if (isloading) {
     return <Loading />;
   }
