@@ -9,8 +9,8 @@ const router = Router();
 
 router.route("/login").post(tryCatch(login));
 router.route("/signup").post(validateUser, validateMiddleware, tryCatch(signup));
-router.route("/profile/:id").get(authMiddleware, tryCatch(profile));
-router.route("/updPass/:id").patch(authMiddleware, tryCatch(updPassword));
-router.route("/remove/:id").delete(authMiddleware, tryCatch(removeUser));
+router.route("/profile/:u_id").get(authMiddleware, tryCatch(profile));
+router.route("/updPass/:u_id").patch(authMiddleware, tryCatch(updPassword));
+router.route("/remove/:u_id").delete(authMiddleware, tryCatch(removeUser));
 
 export default router;

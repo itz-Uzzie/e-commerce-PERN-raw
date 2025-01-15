@@ -1,11 +1,36 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { RootState } from "../../redux/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+import { updatePassword } from "../../redux/slices/userSlice";
 
 function Profile() {
   const user = useSelector((state: RootState) => state.user);
+  const dispatch = useDispatch<ThunkDispatch<unknown,unknown,Action>>()
   const [showPass, setShowPass] = useState(false);
+  const [showPasswordBox, setShowPasswordBox] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+
+  const handlePasswordUpdate = () => {
+    if (!newPassword.trim()) {
+      alert("Please enter a valid password.");
+      return;
+    }
+  
+    dispatch(updatePassword({ u_id: user.decodeduser.u_id, newpass: newPassword }))
+      .unwrap()
+      .then(() => {
+        alert("Password updated successfully!");
+        setNewPassword("");
+        setShowPasswordBox(false);
+      })
+      .catch((error) => {
+        console.error("Error updating password:", error);
+        alert("Failed to update password.");
+      });
+  };
+  
 
   return (
     <div className="flex flex-col lg:flex-row md:flex-row min-h-screen">
@@ -74,7 +99,40 @@ function Profile() {
             >
               {showPass ? "Hide" : "Show"} Password
             </button>
+            <button
+              className="btn btn-outline ml-8"
+              onClick={() => setShowPasswordBox(true)}
+            >
+              Update Password
+            </button>
           </div>
+
+          {showPasswordBox && (
+            <div className="mt-6 p-4 border rounded-lg bg-base-200">
+              <h3 className="text-xl font-semibold mb-4">Update Password</h3>
+              <input
+                type="password"
+                placeholder="Enter new password"
+                className="input input-bordered w-full mb-4"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+              <div className="flex justify-end">
+                <button
+                  className="btn btn-outline mr-4"
+                  onClick={() => setShowPasswordBox(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={handlePasswordUpdate}
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>

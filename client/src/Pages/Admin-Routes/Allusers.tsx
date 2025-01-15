@@ -1,9 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import Loading from "../../Components/Loading";
 import { useEffect } from "react";
-import { fetchAllUsers } from "../../redux/slices/admin-slices/alluserSlice";
+import { RootState } from "../../redux/store";
+import {
+  fetchAllUsers,
+  removeruser,
+} from "../../redux/slices/admin-slices/alluserSlice";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
 
 function Allusers() {
   const users = useSelector((state: RootState) => state.allusers);
@@ -11,6 +14,9 @@ function Allusers() {
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, [dispatch]);
+  const handleRemove = (u_id: number) => {
+    dispatch(removeruser(u_id));
+  };
 
   if (users.isLoading) {
     return <Loading />;
@@ -37,7 +43,14 @@ function Allusers() {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.password}</td>
-                  <td></td>
+                  <td>
+                    <div
+                      className="btn bg-red-600"
+                      onClick={() => handleRemove(user.u_id)}
+                    >
+                      remove user
+                    </div>
+                  </td>
                 </tr>
               );
             })}

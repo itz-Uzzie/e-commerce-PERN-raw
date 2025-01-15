@@ -8,7 +8,6 @@ function PrivateRoute() {
   if (user.isLoading) {
     return <Loading />;
   }
-  console.log(user.decodeduser.isadmin);
   return (
     <>{user.decodeduser.isadmin == false ? <Navigate to="/" /> : <Outlet />}</>
   );

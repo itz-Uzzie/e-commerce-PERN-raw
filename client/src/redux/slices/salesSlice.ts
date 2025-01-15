@@ -63,8 +63,9 @@ const mysalesSlice = createSlice({
             })
             .addCase(fetchMySales.rejected, (state) => {
                 state.isloading = false;
-            })
-            .addCase(updateDeliveryStatus.fulfilled, (state, action) => {
+            });
+
+            builder.addCase(updateDeliveryStatus.fulfilled, (state, action) => {
                 const { oi_id, delivery } = action.payload;
                 const sale = state.sales.find((sale) => sale.oi_id === oi_id);
                 if (sale) sale.delivery = delivery;

@@ -39,20 +39,10 @@ export async function login(req: CustomRequest, res: Response) {
 
 export async function profile(req: CustomRequest, res: Response) {
     await db.query(
-        `select * from users where u_id = $1`, [req.params.id],
+        `select * from users where u_id = $1`, [req.params.u_id],
         (err, result) => {
             if (err) return res.status(400).json({ error: err.message });
             return res.status(200).json(result.rows[0])
-        }
-    );
-}
-
-export async function allusers(req: CustomRequest, res: Response) {
-    await db.query(
-        `select * from users order by u_id asc`,
-        (err, result) => {
-            if (err) return res.status(400).json({ error: err.message });
-            return res.status(200).json(result.rows)
         }
     );
 }
@@ -61,7 +51,7 @@ export async function updPassword(req: CustomRequest, res: Response) {
     const { newpassword } = req.body;
     await db.query(
         `update users set password = $1 where u_id = $2`,
-        [newpassword, req.params.id],
+        [newpassword, req.params.u_id],
         (err) => {
             if (err) return res.status(400).json({ error: err.message });
             res.status(200).json("Password updated successfuly")
@@ -70,7 +60,7 @@ export async function updPassword(req: CustomRequest, res: Response) {
 }
 
 export async function removeUser(req: CustomRequest, res: Response) {
-    await db.query(`delete from users where u_id = $1`, [req.params.id], (err) => {
+    await db.query(`delete from users where u_id = $1`, [req.params.u_id], (err) => {
         if (err) return res.status(400).json(err.message);
         res.status(204).json("User removed successfuly")
     })
