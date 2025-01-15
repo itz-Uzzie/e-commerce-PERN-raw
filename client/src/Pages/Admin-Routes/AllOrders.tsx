@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { RootState } from "../../redux/store";
 import { useNavigate } from "react-router-dom";
-import { fetchAllOrders } from "../../redux/slices/admin-slices/allorderSlice";
+import {
+  approvePayment,
+  fetchAllOrders,
+} from "../../redux/slices/admin-slices/allorderSlice";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../Components/Loading";
@@ -16,6 +19,10 @@ function AllOrders() {
   useEffect(() => {
     dispatch(fetchAllOrders());
   }, [dispatch]);
+
+  const approve_Payment = (o_id: number) => {
+    dispatch(approvePayment(o_id));
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -50,6 +57,7 @@ function AllOrders() {
             </div>
             <button
               disabled={order.payment_status == "approved"}
+              onClick={() => approve_Payment(order.o_id)}
               className="btn bg-green-400 w-full text-gray-600"
             >
               Approve Payment

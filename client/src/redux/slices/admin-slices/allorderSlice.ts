@@ -21,6 +21,17 @@ export const fetchAllOrders = createAsyncThunk('admin/allorders/data', async () 
     return await response.json();
 })
 
+export const approvePayment = createAsyncThunk('payment/approve', async (o_id: number) => {
+    const response = await fetch(`http://localhost:4000/api/v1/admin/payment/approve/${o_id}`, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${localStorage.getItem("token")}` }
+    });
+    if (!response.ok) {
+        console.log("Something went wrong");
+    }
+    return o_id;
+})
+
 const allorderSlice = createSlice({
     name: "orders",
     initialState,
@@ -36,7 +47,21 @@ const allorderSlice = createSlice({
         builder.addCase(fetchAllOrders.rejected, (state) => {
             state.isLoading = false;
             console.log("Something went wrong");
-        })
+        });
+
+        builder.addCase(approvePayment.pending, (state) => {
+            state.isLoading = true;
+        });
+        builder.addCase(approvePayment.fulfilled, (state, action) => {
+            const order = state.orders.find((order) => order.o_id == action.payload);
+            if (order) order.payment_status = 'approved'
+            state.isLoading = false;
+            console.log("Payment approved successfully");
+        });
+        builder.addCase(approvePayment.rejected, (state, action) => {
+            state.isLoading = false;
+            console.error("Payment update failed:", action.payload);
+        });
     }
 });
 export default allorderSlice.reducer;
