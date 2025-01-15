@@ -8,7 +8,9 @@ function OrderConfirmation() {
   const dispatch = useDispatch();
   const orderDetails = useSelector((state: RootState) => state.orderDetails);
   const u_id = useSelector((state: RootState) => state.user.decodeduser.u_id);
-  const [toast, setToast] = useState<{ message: string; type: string } | null>(null);
+  const [toast, setToast] = useState<{ message: string; type: string } | null>(
+    null
+  );
 
   const handleQuantityChange = (p_id: number, newQuantity: number) => {
     dispatch(updateProductQuantity({ p_id, quantity: newQuantity }));
@@ -68,7 +70,9 @@ function OrderConfirmation() {
   return (
     <div className="p-4 bg-gray-700 min-h-screen">
       {toast && <Toast message={toast.message} type={toast.type} />}
-      <h2 className="text-2xl font-semibold mb-6 text-center">Order Confirmation</h2>
+      <h2 className="text-2xl font-semibold mb-6 text-center">
+        Order Confirmation
+      </h2>
       <div className="bg-black shadow-md rounded-lg p-6 mb-6">
         <h3 className="text-lg font-medium mb-2">Shipping Address</h3>
         <p className="text-gray-400">{`${orderDetails.address?.area}, ${orderDetails.address?.city}, ${orderDetails.address?.country}`}</p>
@@ -77,7 +81,10 @@ function OrderConfirmation() {
         <h3 className="text-lg font-medium mb-4">Products</h3>
         <ul className="divide-y divide-gray-200">
           {orderDetails.products.map((prod) => (
-            <li key={prod.p_id} className="py-4 flex justify-between items-center">
+            <li
+              key={prod.p_id}
+              className="py-4 flex justify-between items-center"
+            >
               <div>
                 <p className="font-medium text-gray-800">{prod.name}</p>
                 <p className="text-sm text-gray-400">${prod.price} each</p>
@@ -102,9 +109,7 @@ function OrderConfirmation() {
       </div>
       <div className="bg-black shadow-md rounded-lg p-6 mb-6">
         <h3 className="text-lg font-medium">Total Price</h3>
-        <p className="text-xl font-semibold text-gray-400">
-          ${totalPrice}
-        </p>
+        <p className="text-xl font-semibold text-gray-400">${totalPrice}</p>
       </div>
       <button
         onClick={handleConfirm}

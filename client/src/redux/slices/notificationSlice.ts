@@ -39,25 +39,25 @@ const notificationSlice = createSlice({
     builder.addCase(fetchnotifications.pending, (state) => {
       state.isLoading = true;
     })
-    .addCase(fetchnotifications.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.notifications = action.payload;
-    })
-    .addCase(fetchnotifications.rejected, (state) => {
-      state.isLoading = false;
-    });
+      .addCase(fetchnotifications.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.notifications = action.payload;
+      })
+      .addCase(fetchnotifications.rejected, (state) => {
+        state.isLoading = false;
+      });
 
     builder.addCase(mark_as_read.pending, (state) => {
       state.isLoading = true;
     })
-    .addCase(mark_as_read.fulfilled, (state, action) => {
-      const notification = state.notifications.find((not) => not.n_id === action.payload);
-      if (notification) notification.isread = true;
-      state.isLoading = false;
-    })
-    .addCase(mark_as_read.rejected, (state) => {
-      state.isLoading = false;
-    })
+      .addCase(mark_as_read.fulfilled, (state, action) => {
+        const notification = state.notifications.find((not) => not.n_id === action.payload);
+        if (notification) notification.isread = true;
+        state.isLoading = false;
+      })
+      .addCase(mark_as_read.rejected, (state) => {
+        state.isLoading = false;
+      })
   },
 });
 

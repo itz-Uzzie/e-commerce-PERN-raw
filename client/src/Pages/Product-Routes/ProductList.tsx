@@ -11,10 +11,13 @@ const ProductList = () => {
   }
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-8 container mx-auto">
-      {product.products.length > 0 &&
+      {product.products.length > 0 ? (
         product.products.map((product) => (
           <ProductCard key={product.p_id} product={product} />
-        ))}
+        ))
+      ) : (
+        <p className="text-2xl">No any product available!</p>
+      )}
     </div>
   );
 };

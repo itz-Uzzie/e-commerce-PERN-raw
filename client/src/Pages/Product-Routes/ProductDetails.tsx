@@ -93,7 +93,9 @@ const ProductDetails = () => {
 
       <div className="mt-6">
         <h1 className="text-lg font-bold">{product.name}</h1>
-        <p className="text-md text-gray-600 mt-2 whitespace-pre-line">{product.description}</p>
+        <p className="text-md text-gray-600 mt-2 whitespace-pre-line">
+          {product.description}
+        </p>
         <p className="text-lg font-semibold text-emerald-600 mt-4">
           ${product.price}
         </p>
@@ -103,7 +105,9 @@ const ProductDetails = () => {
 
         <button
           disabled={product?.owner == user.u_id}
-          className={`btn btn-outline mt-6 px-4 py-2 ${product.owner == user.u_id?"btn-disabled":"bg-green-600"}  text-white rounded-md hover:bg-green-800`}
+          className={`btn btn-outline mt-6 px-4 py-2 ${
+            product.owner == user.u_id ? "btn-disabled" : "bg-green-600"
+          }  text-white rounded-md hover:bg-green-800`}
           onClick={() => add_to_cart()}
         >
           Add to Cart

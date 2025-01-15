@@ -53,7 +53,7 @@ function MySales() {
               <strong>Address : </strong> {item.address}
             </div>
             <button
-            disabled = {item.delivery=="Delivered"}
+              disabled={item.delivery == "Delivered"}
               onClick={() => {
                 setSelectedSale(item.oi_id);
                 setShowModal(true);

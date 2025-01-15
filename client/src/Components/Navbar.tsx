@@ -42,7 +42,7 @@ const Navbar = () => {
     <nav className="bg-transparent shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold">
+          <div className="text-2xl font-bold hover:text-green-400">
             <Link to="/">Me Commerce</Link>
           </div>
 
