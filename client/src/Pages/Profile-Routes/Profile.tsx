@@ -95,13 +95,13 @@ function Profile() {
               {showPass ? user.user.password : "******"}
             </p>
             <button
-              className="btn btn-outline mt-2"
+              className="btn btn-outline hover:bg-green-500 mt-2"
               onClick={() => setShowPass(!showPass)}
             >
               {showPass ? "Hide" : "Show"} Password
             </button>
             <button
-              className="btn btn-outline ml-8"
+              className="btn btn-outline hover:bg-green-500 ml-8"
               onClick={() => setShowPasswordBox(true)}
             >
               Update Password

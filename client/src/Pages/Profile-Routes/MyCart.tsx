@@ -2,8 +2,8 @@ import Loading from "../../Components/Loading";
 import Address from "../../Components/Address";
 import { RootState } from "../../redux/store";
 import { fetchCart } from "../../redux/slices/cartSlice";
-import { useNavigate } from "react-router-dom";
 import { setOrderDetails } from "../../redux/slices/orderDetailSlice";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Action, ThunkDispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,6 @@ function MyCart() {
   const user = useSelector((state: RootState) => state.user.decodeduser);
   const address = useSelector((state: RootState) => state.address);
   const dispatch = useDispatch<ThunkDispatch<unknown, unknown, Action>>();
-  console.log(address);
 
   const [isModel, setIsModel] = useState(false);
   const [isAddressModal, setisAddressModal] = useState(false);
@@ -63,18 +62,27 @@ function MyCart() {
         <h2 className="text-2xl font-semibold">All Products</h2>
       </div>
       <button
-        className="mb-4 bg-emerald-500 text-white py-2 px-4 rounded hover:bg-emerald-600"
+        className="mb-4 bg-green-700 text-white py-2 px-4 rounded hover:bg-green-500"
         onClick={() => setisAddressModal(!isAddressModal)}
       >
         Add address
       </button>
       {isAddressModal && <Address />}
-      <button
-        className="mb-4 bg-emerald-500 text-white py-2 px-4 rounded hover:bg-emerald-600"
-        onClick={() => setIsModel(!isModel)}
-      >
-        Select to Order
-      </button>
+      {cart.products.length > 0 ? (
+        <button
+          className="mb-4 bg-green-700 text-white py-2 px-4 rounded hover:bg-green-500"
+          onClick={() => setIsModel(!isModel)}
+        >
+          Select to Order
+        </button>
+      ) : (
+        <Link
+          to="/"
+          className="btn p-2 text-xl font-semibold bg-green-700 hover:bg-green-500 hover:transition"
+        >
+          Continue Shopping
+        </Link>
+      )}
       <div className="flex flex-col w-full md:w-3/4 p-4 space-y-6">
         {cart.products.length > 0 &&
           cart.products.map((prod) => (

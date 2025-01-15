@@ -59,7 +59,7 @@ const ProductDetails = () => {
       {isModal && <Toast message={resultData} type={"success"} />}
       {loginModal && <Toast message={"Login first"} type={"info"} />}
       <div className="flex flex-col lg:flex-row md:flex-row gap-4">
-        <div className="w-full lg:w-3/4 aspect-square bg-slate-900 flex items-center justify-center rounded-md overflow-hidden">
+        <div className="w-full h-80 lg:w-3/4 aspect-square bg-slate-900 flex items-center justify-center rounded-md overflow-hidden">
           {product.images.length > 0 ? (
             <img
               src={product.images[currentImg]}
@@ -94,7 +94,7 @@ const ProductDetails = () => {
 
       <div className="mt-6">
         <h1 className="text-lg font-bold">{product.name}</h1>
-        <p className="text-md text-gray-600 mt-2">{product.description}</p>
+        <p className="text-md text-gray-600 mt-2 whitespace-pre-line">{product.description}</p>
         <p className="text-lg font-semibold text-emerald-600 mt-4">
           ${product.price}
         </p>

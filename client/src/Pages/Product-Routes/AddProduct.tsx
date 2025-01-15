@@ -79,8 +79,8 @@ function AddProduct() {
   };
 
   return (
-    <div className="container max-w-3xl mx-auto p-6 bg-black rounded-lg shadow-md">
-      <form className="space-y-6" onSubmit={handleSubmit}>
+    <div className="container my-4 max-w-3xl mx-auto p-6 bg-zinc-700 rounded-lg shadow-md">
+      <form className="space-y-2" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="category" className="block text-sm font-medium">
             Category
@@ -91,7 +91,7 @@ function AddProduct() {
             value={productData.ct_id}
             onChange={handleChange}
             required
-            className="mt-1 block w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+            className="mt-1 block bg-slate-800 w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
           >
             <option value="">Select Category</option>
             {categories.length > 0 &&
@@ -114,7 +114,7 @@ function AddProduct() {
             onChange={handleChange}
             placeholder="Enter product name"
             required
-            className="mt-1 block w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+            className="mt-1 block bg-slate-800 w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
           />
         </div>
 
@@ -128,7 +128,7 @@ function AddProduct() {
             value={productData.price}
             onChange={handleChange}
             required
-            className="mt-1 block w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+            className="mt-1 block bg-slate-800 w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
           />
         </div>
 
@@ -142,7 +142,7 @@ function AddProduct() {
             value={productData.stock}
             onChange={handleChange}
             required
-            className="mt-1 block w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+            className="mt-1 bg-slate-800 block w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
           />
         </div>
 
@@ -156,7 +156,7 @@ function AddProduct() {
             value={productData.description}
             onChange={handleChange}
             required
-            className="mt-1 block w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
+            className="mt-1 block bg-slate-800 w-full p-2 border rounded-md focus:ring-emerald-500 focus:border-emerald-500"
           />
         </div>
 
@@ -170,7 +170,7 @@ function AddProduct() {
             multiple
             accept="image/*"
             onChange={handleChange}
-            className="mt-1 block w-full p-2 border rounded-md"
+            className="mt-1 block bg-slate-800 w-full p-2 border rounded-md"
           />
         </div>
 
