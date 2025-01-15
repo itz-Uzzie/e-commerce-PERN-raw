@@ -40,7 +40,6 @@ const userSlice = createSlice({
         })
 
         builder.addCase(removeruser.fulfilled, (state, action) => {
-            state.isLoading = false;
             state.users = state.users.filter((user) => user.u_id !== action.payload)
         })
     }

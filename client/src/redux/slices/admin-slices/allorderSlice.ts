@@ -49,18 +49,11 @@ const allorderSlice = createSlice({
             console.log("Something went wrong");
         });
 
-        builder.addCase(approvePayment.pending, (state) => {
-            state.isLoading = true;
-        });
         builder.addCase(approvePayment.fulfilled, (state, action) => {
             const order = state.orders.find((order) => order.o_id == action.payload);
             if (order) order.payment_status = 'approved'
             state.isLoading = false;
             console.log("Payment approved successfully");
-        });
-        builder.addCase(approvePayment.rejected, (state, action) => {
-            state.isLoading = false;
-            console.error("Payment update failed:", action.payload);
         });
     }
 });

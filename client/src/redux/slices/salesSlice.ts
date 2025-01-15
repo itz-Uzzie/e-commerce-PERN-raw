@@ -44,7 +44,7 @@ export const updateDeliveryStatus = createAsyncThunk(
         if (!response.ok) {
             throw new Error("Failed to update delivery status");
         }
-        return await response.json() as { oi_id: number; delivery: string };
+        return { oi_id, delivery };
     }
 );
 
@@ -65,11 +65,11 @@ const mysalesSlice = createSlice({
                 state.isloading = false;
             });
 
-            builder.addCase(updateDeliveryStatus.fulfilled, (state, action) => {
-                const { oi_id, delivery } = action.payload;
-                const sale = state.sales.find((sale) => sale.oi_id === oi_id);
-                if (sale) sale.delivery = delivery;
-            });
+        builder.addCase(updateDeliveryStatus.fulfilled, (state, action) => {
+            const { oi_id, delivery } = action.payload;
+            const sale = state.sales.find((sale) => sale.oi_id === oi_id);
+            if (sale) sale.delivery = delivery;
+        });
     },
 });
 
