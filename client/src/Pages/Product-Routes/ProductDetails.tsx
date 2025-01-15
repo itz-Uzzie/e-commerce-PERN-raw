@@ -22,7 +22,6 @@ const ProductDetails = () => {
     localStorage.getItem("product") || "null"
   );
   const user = useSelector((state: RootState) => state.user.decodeduser);
-
   const add_to_cart = async () => {
     if (!user.u_id) {
       setTimeout(() => {
@@ -103,11 +102,11 @@ const ProductDetails = () => {
         </p>
 
         <button
-          disabled={product.owner == user.u_id}
-          className={`mt-6 px-4 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600`}
+          disabled={product?.owner == user.u_id}
+          className={`btn btn-outline mt-6 px-4 py-2 ${product.owner == user.u_id?"btn-disabled":"bg-green-600"}  text-white rounded-md hover:bg-green-800`}
           onClick={() => add_to_cart()}
         >
-          Add to cart
+          Add to Cart
         </button>
       </div>
     </div>
